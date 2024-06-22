@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start:dev": "tsx watch src/server.ts",
+    "start:dev": "tsx watch --env-file .env src/server.ts",
     "test": "vitest --passWithNoTests --run"
   },
   "keywords": [],
