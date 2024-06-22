@@ -1,0 +1,23 @@
+services:
+  db:
+    image: bitnami/postgresql
+    container_name: daily_db_postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=docker
+
+  app:
+    build: .
+    restart: always
+    volumes:
+      - .:/usr/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    links:
+      - db
