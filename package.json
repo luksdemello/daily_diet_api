@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start:dev": "tsx watch src/server.ts",
     "test": "vitest --passWithNoTests --run"
   },
   "keywords": [],
@@ -13,6 +14,7 @@
   "devDependencies": {
     "@types/node": "^20.14.8",
     "git-commit-msg-linter": "^5.0.8",
+    "tsx": "^4.15.7",
     "typescript": "^5.5.2",
     "vitest": "^1.6.0"
   },
