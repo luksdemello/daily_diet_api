@@ -12,7 +12,7 @@ export const knexConfig: Knex.Config = {
   },
   migrations: {
     extension: "ts",
-    directory: "./src/database/migrations",
+    directory: "./src/config/database/migrations",
   },
 };
 
