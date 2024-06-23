@@ -10,6 +10,7 @@ export type CreateUserInput = {
 
 export class CreateUserUseCase {
   constructor(private userRepository: UserRepository) {}
+
   async execute(input: CreateUserInput): Promise<User> {
     const userAlreadyExists = await this.userRepository.findUserByEmail(
       input.email,

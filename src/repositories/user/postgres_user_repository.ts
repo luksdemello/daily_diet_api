@@ -19,13 +19,12 @@ export class PostgresUserRepository implements UserRepository {
       name,
       email,
       session_id,
-      created_at: user.created_at.toTimeString(),
-      updated_at: user.updated_at.toTimeString(),
     });
 
     return user;
   }
   async findUserByEmail(email: string): Promise<User | null> {
+    console.log("response", email);
     const response = await knexDb("users").where({ email }).first();
     if (!response) {
       return null;

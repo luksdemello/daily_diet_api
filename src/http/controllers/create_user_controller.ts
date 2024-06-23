@@ -35,8 +35,11 @@ export class CreateUserController {
       if (error instanceof UserAlreadyExists) {
         return reply.send(400).send({ message: error.message });
       }
+      console.log(error);
 
-      return reply.status(500).send({ message: "Internal server error" });
+      return reply
+        .status(500)
+        .send({ message: "Internal server error", error });
     }
   }
 }
