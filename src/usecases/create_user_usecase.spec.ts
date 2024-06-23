@@ -3,6 +3,7 @@ import { CreateUserInput, CreateUserUseCase } from "./create_user_usecase";
 import { User } from "../entities/user";
 import { UserRepository } from "../repositories/user/user_repository";
 import { CreateUserDto } from "../repositories/user/dto/user_dto";
+import { CreateUserError } from "../errors/create_user_errors";
 
 class UserRepositoryStub implements UserRepository {
   async findUserByEmail(email: string): Promise<User | null> {
@@ -61,6 +62,16 @@ describe("CreateUserUseCase", () => {
     await sut.execute(input);
     expect(userRepositorySpy).toHaveBeenCalledOnce();
     expect(userRepositorySpy).toHaveBeenCalledWith(input);
+  });
+
+  it("shoud throws if createUser throws", async () => {
+    const { sut, userRepository } = makeSut();
+    vi.spyOn(userRepository, "createUser").mockImplementationOnce(() => {
+      throw new Error();
+    });
+    const input = makeSutInput();
+    const promise = sut.execute(input);
+    expect(promise).rejects.toThrow();
   });
 
   it("shoud call findUserByEmail in UserRepository with correct values", async () => {
