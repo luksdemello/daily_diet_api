@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start:dev": "tsx watch --env-file .env src/server.ts",
-    "test": "vitest --passWithNoTests --run"
+    "test": "vitest --passWithNoTests --run",
+    "knex": "node --env-file .env --import tsx ./node_modules/.bin/knex"
   },
   "keywords": [],
   "author": "",
