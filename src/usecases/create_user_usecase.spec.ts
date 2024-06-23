@@ -20,6 +20,9 @@ class UserRepositoryStub implements UserRepository {
   async findUserByEmail(email: string): Promise<User | null> {
     return null;
   }
+  async findUserBySession(session_id: string): Promise<User | null> {
+    return null;
+  }
   async createUser(data: CreateUserDto): Promise<User> {
     const user = mockUserResponse();
     user.email = data.email;
