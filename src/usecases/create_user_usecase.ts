@@ -1,4 +1,5 @@
 import { User } from "../entities/user";
+import { UserAlreadyExists } from "../errors/create_user_errors";
 import { UserRepository } from "../repositories/user/user_repository";
 
 export type CreateUserInput = {
@@ -13,6 +14,10 @@ export class CreateUserUseCase {
     const userAlreadyExists = await this.userRepository.findUserByEmail(
       input.email,
     );
+
+    if (userAlreadyExists) {
+      throw new UserAlreadyExists();
+    }
 
     const user = await this.userRepository.createUser(input);
     return user;

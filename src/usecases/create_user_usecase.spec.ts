@@ -3,20 +3,29 @@ import { CreateUserInput, CreateUserUseCase } from "./create_user_usecase";
 import { User } from "../entities/user";
 import { UserRepository } from "../repositories/user/user_repository";
 import { CreateUserDto } from "../repositories/user/dto/user_dto";
+import { UserAlreadyExists } from "../errors/create_user_errors";
+
+const mockUserResponse = (): User => {
+  return new User({
+    id: "any_id",
+    email: "any_email",
+    name: "any_namel",
+    session_id: "any_session",
+    created_at: new Date(),
+    updated_at: new Date(),
+  });
+};
 
 class UserRepositoryStub implements UserRepository {
   async findUserByEmail(email: string): Promise<User | null> {
     return null;
   }
   async createUser(data: CreateUserDto): Promise<User> {
-    return new User({
-      id: "any_id",
-      email: data.email,
-      name: data.name,
-      session_id: data.session_id,
-      created_at: new Date(),
-      updated_at: new Date(),
-    });
+    const user = mockUserResponse();
+    user.email = data.email;
+    user.name = data.name;
+    user.session_id = data.session_id;
+    return user;
   }
 }
 
@@ -47,11 +56,15 @@ const makeSutInput = (): CreateUserInput => {
 describe("CreateUserUseCase", () => {
   it("shoud return an user", async () => {
     const { sut } = makeSut();
-    const response = await sut.execute(makeSutInput());
+    const input = makeSutInput();
+    const response = await sut.execute(input);
     expect(response).toBeInstanceOf(User);
     expect(response.id).toBeTruthy();
     expect(response.created_at).toBeTruthy();
     expect(response.updated_at).toBeTruthy();
+    expect(response.email).toEqual(input.email);
+    expect(response.name).toEqual(input.name);
+    expect(response.session_id).toEqual(input.session_id);
   });
 
   it("shoud call createUser in UserRepository with correct values", async () => {
@@ -90,5 +103,18 @@ describe("CreateUserUseCase", () => {
     const input = makeSutInput();
     const promise = sut.execute(input);
     expect(promise).rejects.toThrow();
+  });
+
+  it("shoud throws if user email already exists", async () => {
+    const { sut, userRepository } = makeSut();
+    vi.spyOn(userRepository, "findUserByEmail").mockImplementationOnce(
+      (_: string) => {
+        const user = mockUserResponse();
+        return Promise.resolve(user);
+      },
+    );
+    const input = makeSutInput();
+    const promise = sut.execute(input);
+    expect(promise).rejects.toThrow(UserAlreadyExists);
   });
 });
