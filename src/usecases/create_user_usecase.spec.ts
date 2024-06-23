@@ -5,6 +5,9 @@ import { UserRepository } from "../repositories/user/user_repository";
 import { CreateUserDto } from "../repositories/user/dto/user_dto";
 
 class UserRepositoryStub implements UserRepository {
+  async findUserByEmail(email: string): Promise<User | null> {
+    return null;
+  }
   async createUser(data: CreateUserDto): Promise<User> {
     return new User({
       id: "any_id",
@@ -54,8 +57,18 @@ describe("CreateUserUseCase", () => {
   it("shoud call createUser in UserRepository with correct values", async () => {
     const { sut, userRepository } = makeSut();
     const userRepositorySpy = vi.spyOn(userRepository, "createUser");
-    await sut.execute(makeSutInput());
+    const input = makeSutInput();
+    await sut.execute(input);
     expect(userRepositorySpy).toHaveBeenCalledOnce();
-    expect(userRepositorySpy).toHaveBeenCalledWith(makeSutInput());
+    expect(userRepositorySpy).toHaveBeenCalledWith(input);
+  });
+
+  it("shoud call findUserByEmail in UserRepository with correct values", async () => {
+    const { sut, userRepository } = makeSut();
+    const userRepositorySpy = vi.spyOn(userRepository, "findUserByEmail");
+    const input = makeSutInput();
+    await sut.execute(input);
+    expect(userRepositorySpy).toHaveBeenCalledOnce();
+    expect(userRepositorySpy).toHaveBeenCalledWith(input.email);
   });
 });

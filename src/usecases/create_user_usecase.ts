@@ -10,16 +10,11 @@ export type CreateUserInput = {
 export class CreateUserUseCase {
   constructor(private userRepository: UserRepository) {}
   async execute(input: CreateUserInput): Promise<User> {
-    await this.userRepository.createUser(input);
+    const userAlreadyExists = await this.userRepository.findUserByEmail(
+      input.email,
+    );
 
-    const user = new User({
-      id: "id",
-      name: "name",
-      email: "email",
-      session_id: "session_id",
-      created_at: new Date(),
-      updated_at: new Date(),
-    });
+    const user = await this.userRepository.createUser(input);
     return user;
   }
 }
