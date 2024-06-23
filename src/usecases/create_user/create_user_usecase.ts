@@ -1,6 +1,6 @@
-import { User } from "../entities/user";
-import { UserAlreadyExists } from "../errors/create_user_errors";
-import { UserRepository } from "../repositories/user/user_repository";
+import { User } from "../../entities/user";
+import { UserAlreadyExists } from "../../errors/create_user_errors";
+import { UserRepository } from "../../repositories/user/user_repository";
 
 export type CreateUserInput = {
   name: string;

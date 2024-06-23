@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
 import { CreateUserInput, CreateUserUseCase } from "./create_user_usecase";
-import { User } from "../entities/user";
-import { UserRepository } from "../repositories/user/user_repository";
-import { CreateUserDto } from "../repositories/user/dto/user_dto";
-import { UserAlreadyExists } from "../errors/create_user_errors";
+import { UserRepository } from "../../repositories/user/user_repository";
+import { User } from "../../entities/user";
+import { CreateUserDto } from "../../repositories/user/dto/user_dto";
+import { UserAlreadyExists } from "../../errors/create_user_errors";
 
 const mockUserResponse = (): User => {
   return new User({
