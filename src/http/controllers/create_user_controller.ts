@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { CreateUserUseCase } from "../../usecases/create_user/create_user_usecase";
 import { z } from "zod";
 import { randomUUID } from "node:crypto";
-import { UserAlreadyExists } from "../../errors/create_user_errors";
+import { UserAlreadyExists } from "../../errors/user_already_exists_error";
 
 export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}
