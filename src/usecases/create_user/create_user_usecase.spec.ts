@@ -3,7 +3,7 @@ import { CreateUserInput, CreateUserUseCase } from "./create_user_usecase";
 import { UserRepository } from "../../repositories/user/user_repository";
 import { User } from "../../entities/user";
 import { CreateUserDto } from "../../repositories/user/dto/user_dto";
-import { UserAlreadyExists } from "../../errors/create_user_errors";
+import { UserAlreadyExists } from "../../errors/user_already_exists_error";
 
 const mockUserResponse = (): User => {
   return new User({
