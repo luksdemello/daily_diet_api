@@ -4,7 +4,7 @@ import { MealRepository } from "../../repositories/meal/meal_repository";
 export type CreateMealInput = {
   name: string;
   description: string;
-  is_ond_diet: boolean;
+  is_on_diet: boolean;
   date: Date;
   user_id: string;
 };
@@ -18,7 +18,7 @@ export class CreateMealUseCase {
       name: input.name,
       date: input.date,
       description: input.description,
-      is_on_diet: input.is_ond_diet,
+      is_on_diet: input.is_on_diet,
       id: randomUUID(),
       user_id: input.user_id,
       created_at: currentDate,

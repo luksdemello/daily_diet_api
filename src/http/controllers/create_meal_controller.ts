@@ -9,18 +9,17 @@ export class CreateMealController {
       const createMealBodySchema = z.object({
         name: z.string(),
         description: z.string(),
-        is_ond_diet: z.boolean(),
+        is_on_diet: z.boolean(),
         date: z.coerce.date(),
       });
-
-      const { name, date, description, is_ond_diet } =
+      const { name, date, description, is_on_diet } =
         createMealBodySchema.parse(request.body);
 
       await this.createMealUseCase.execute({
         name,
         date,
         description,
-        is_ond_diet,
+        is_on_diet,
         user_id: request.user?.id ?? "",
       });
       return reply.status(201).send();

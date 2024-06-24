@@ -6,17 +6,15 @@ export class FindMealsByUserController {
   constructor(private findMealsByUserlUseCase: FindMealsByUserUseCase) {}
   async handler(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const paramsSchema = z.object({
-        user_id: z.string(),
-      });
+      const user_id = request.user?.id ?? "";
 
-      const { user_id } = paramsSchema.parse(request.params);
-
-      const meal = await this.findMealsByUserlUseCase.execute({
+      const meals = await this.findMealsByUserlUseCase.execute({
         user_id,
       });
-      return reply.status(200).send(meal);
+
+      return reply.status(200).send({ meals });
     } catch (error) {
+      console.log(error);
       return reply
         .status(500)
         .send({ message: "Internal server error", error });

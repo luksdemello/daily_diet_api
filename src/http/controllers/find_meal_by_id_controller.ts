@@ -15,7 +15,7 @@ export class FindMealByIdController {
       const meal = await this.findMealByIdUseCase.execute({
         meal_id,
       });
-      return reply.status(200).send(meal);
+      return reply.status(200).send({ meal });
     } catch (error) {
       return reply
         .status(500)

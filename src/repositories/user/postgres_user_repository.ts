@@ -24,7 +24,6 @@ export class PostgresUserRepository implements UserRepository {
     return user;
   }
   async findUserByEmail(email: string): Promise<User | null> {
-    console.log("response", email);
     const response = await knexDb("users").where({ email }).first();
     if (!response) {
       return null;

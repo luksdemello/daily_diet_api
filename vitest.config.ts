@@ -4,6 +4,11 @@ export default defineConfig({
   test: {
     globals: true,
     reporters: "verbose",
-    include: ["./src/**/*.spec.ts"],
+    pool: "forks",
+    poolOptions: {
+      forks: {
+        singleFork: true,
+      },
+    },
   },
 });
