@@ -17,7 +17,17 @@ export class MealRepositoryMock implements MealRepository {
     });
   }
   async findAllMealsByUser(user_id: string): Promise<Meal[]> {
-    return [];
+    return [
+      new Meal({
+        id: "any_id",
+        created_at: new Date(),
+        description: "any_description",
+        is_on_diet: false,
+        name: "any_name",
+        updated_at: new Date(),
+        user_id: user_id,
+      }),
+    ];
   }
   async updateMeal(data: UpdateMealDto): Promise<void> {}
   async deleteMeal(meal_id: string): Promise<void> {}
