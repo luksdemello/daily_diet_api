@@ -10,5 +10,10 @@ export default defineConfig({
         singleFork: true,
       },
     },
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'lcov', 'json-summary'],
+      reportsDirectory: './coverage',
+    },
   },
 });
